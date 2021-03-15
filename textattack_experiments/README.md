@@ -32,3 +32,13 @@ All the attacking experiments were implemented with usage of the TextAttack fram
 }
 ```
 
+The number of the successfully attacked texts.
+
+Hyperparameters of the TextFooler technique:
+
+* $k$ — the number of the most similar words.
+
+| Language\k | 15          | 30          | 50          |
+|------------|-------------|-------------|-------------|
+| EN         | 416 (32,9%) | 438 (34,7%) | 453 (35,8%) |
+| RU         | 686 (47,4%) | 718 (49,6%) | 745 (51,5%) |
