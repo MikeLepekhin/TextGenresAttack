@@ -36,8 +36,12 @@ The number of the successfully attacked texts.
 
 Hyperparameters of the TextFooler technique:
 
-* $k$ — the number of the most similar words.
+* $k$ — the number of the most similar words,
 
+* $threshold$ -- the minimum dor product value between the USE emdeddings of the original and the attacked texts.
+
+
+### Untargeted attacks
 
 `threshold=0.84`
 
@@ -67,3 +71,13 @@ Hyperparameters of the TextFooler technique:
 |------------|-------------|-------------|-------------|
 | EN         | 424 (33,5%) | 444 (35,1%) | 457 (36,2%) |
 | RU         | 687 (47,5%) | 720 (49,8%) | 744 (51,4%) |
+
+
+### Targeted attacks
+
+`threshold=0.84`
+
+| Language\k | 15          | 30          | 50          |
+|------------|-------------|-------------|-------------|
+| EN         | 233 (34,2%) | 248 (36,4%) | 254 (37,2%) |
+| RU         | 317 (57,3%) | 326 (59,0%) | 328 (59,3%) |
