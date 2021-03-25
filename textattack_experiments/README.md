@@ -73,6 +73,23 @@ Hyperparameters of the TextFooler technique:
 | RU         | 687 (47,5%) | 720 (49,8%) | 744 (51,4%) |
 
 
+### Testing the robust models
+
+`Language=EN`
+
+| Model\k    | 15          | 30          | 50          |
+|------------|-------------|-------------|-------------|
+| base       | 363         | 373         | 375         |
+| robust     | 292         | 329         | 350         |
+
+
+`Language=RU`
+
+| Model\k    | 15          | 30          | 50          |
+|------------|-------------|-------------|-------------|
+| base       | 234         | 247         | 252         |
+| robust     | 209         | 234         | 244         |
+
 ### Targeted attacks
 
 `threshold=0.84`
@@ -81,3 +98,4 @@ Hyperparameters of the TextFooler technique:
 |------------|-------------|-------------|-------------|
 | EN         | 233 (34,2%) | 248 (36,4%) | 254 (37,2%) |
 | RU         | 317 (57,3%) | 326 (59,0%) | 328 (59,3%) |
+
