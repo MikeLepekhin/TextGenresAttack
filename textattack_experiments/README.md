@@ -75,19 +75,21 @@ Hyperparameters of the TextFooler technique:
 
 ### Testing the robust models
 
-`Language=EN`
-
-| Model\k    | 15          | 30          | 50          |
-|------------|-------------|-------------|-------------|
-| base       | 363         | 373         | 375         |
-| robust     | 292         | 329         | 350         |
-
-
 `Language=RU`
 
 | Model\k    | 15          | 30          | 50          |
 |------------|-------------|-------------|-------------|
+| base       | 363         | 373         | 375         |
+| targeted   | 332         | 343         | 355         |
+| robust     | 292         | 329         | 350         |
+
+
+`Language=EN`
+
+| Model\k    | 15          | 30          | 50          |
+|------------|-------------|-------------|-------------|
 | base       | 234         | 247         | 252         |
+| targeted   | 254         | 269         | 272         |
 | robust     | 209         | 234         | 244         |
 
 ### Targeted attacks
