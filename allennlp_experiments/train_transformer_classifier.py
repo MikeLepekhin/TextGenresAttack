@@ -1,6 +1,9 @@
+import argparse
 import glob
 import os.path
 import shutil
+import random
+import torch
 
 from data_processing import *
 from interpretation import *
@@ -90,3 +93,31 @@ def train_transformer_model(transformer_model, train_data_filename,
 
     # save the model vocabulary to file
     model.vocab.save_to_files(os.path.join(model_dir, 'vocab'))
+    
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Train a transformer model.')
+    
+    parser.add_argument('--transformer-model', type=str, help='model type (example: bert-base-cased)')
+    parser.add_argument('--train-data-filename', type=str, help='name of the train data file in csv format')
+    parser.add_argument('--test-data-filename', type=str, help='name of the test data file in csv format')
+    parser.add_argument('--model-dir', type=str, help='directory where to save the model after training')
+    parser.add_argument('--epochs-num', type=int, default=10, help='the number of the epochs')
+    parser.add_argument(
+        '--rewrite-dir', type=bool, default=False, 
+         help='indicates whether should the model_dir be rewrited if it already exists'
+    )
+    parser.add_argument(
+        '--use-bert-pooler', type=bool, default=False, 
+         help='indicates whether should we take the embedding of the first token as the text embedding'
+    )
+    parser.add_argument('--random-seed', type=int, default=42)
+    parser.add_argument('--cuda-device', type=int, default=-1)
+   
+    args = parser.parse_args()
+    
+    torch.manual_seed(args.random_seed)
+    random.seed(args.random_seed)
+    
+    train_transformer_model(args.transformer_model, args.train_data_filename,
+                            args.test_data_filename, args.model_dir, args.epochs_num,
+                            args.cuda_device, args.rewrite_dir, args.use_bert_pooler)
