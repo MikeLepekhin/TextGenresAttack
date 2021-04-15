@@ -11,6 +11,36 @@ Here we use the AllenNLP framework [AllenNLP: A Deep Semantic Natural Language P
 }
 ```
 
+### How to run the code
+
+If you want to train a transformer model for genre classification on some dataset, use the following command:
+
+```
+python train_transformer_classifier.py \
+       --transformer-model xlm-roberta-base \
+       --train-data-filename <your_train_data.csv> \
+       --test-data-filename <your_test_data.csv> \
+       --model-dir <path_where_to_save_model> \
+       --batch-size <batch_size> \
+       --random-seed 42 \
+       --cuda-device 0
+```
+
+In order to evaluate a trained transformer model for genre classification on some dataset, use the following command:
+
+```
+python evaluate_transformer_classifier.py \
+       --transformer-model xlm-roberta-base \
+       --test-data-filename <your_test_data.csv> \
+       --model-dir <path_to_your_model> \
+       --batch-size <batch_size> \
+       --cuda-device 0
+```
+
+In the paper we use `transformer-model=xlm-roberta-base` but it is still possible to apply different transformer-based models.
+
+### Experiment results
+
 We add the successfully attacked texts to the original train dataset and train XLM-Roberta on the data.
 We train XLM-Roberta on each dataset 3 times with different random seeds and investigate how the hyperparameter $k$ affects the model accuracy on the test datasets. 
 

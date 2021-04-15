@@ -123,7 +123,7 @@ class AdversarialClassifier(Model):
     
 
 def build_transformer_model(vocab: Vocabulary, transformer_model: str) -> Model:
-    print("Building the model")
+    #print("Building the model")
     vocab_size = vocab.get_vocab_size("tokens")
     embedding = PretrainedTransformerEmbedder(model_name=transformer_model)
     embedder = BasicTextFieldEmbedder(token_embedders={'bert_tokens': embedding})
