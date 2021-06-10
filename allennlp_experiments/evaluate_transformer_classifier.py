@@ -14,10 +14,15 @@ from os import makedirs, remove
 from training import *
 from tqdm import tqdm
 
+
 def short_text(text):
     return ' '.join(text.split()[:500])
 
 def text_batch_to_ids(text_list, tokenizer, indexer, vocab, device):
+    '''
+    Transforms the given list of texts to a pytorch tensor
+    '''
+
     MAX_TOKENS = 512
     
     text_fields = []
@@ -39,6 +44,19 @@ def text_batch_to_ids(text_list, tokenizer, indexer, vocab, device):
     return result
 
 def predict_labels_for_texts(text_list, batch_size, model, tokenizer, indexer, vocab, device):
+    '''
+    Applies the given model to the given list of texts and returns the predicted labels.
+    
+    Parameters.
+    1) text_list - list of the texts,
+    2) batch_size - batch size,
+    3) model - AllenNLP model for text classification,
+    4) tokenizer - text tokenizer for the model,
+    5) indexer - token indexer for the model,
+    6) vocab - model vocabulary,
+    7) device - cuda device id on which the model trains (if set to -1, classification performs on CPU).
+    '''
+
     all_predict = None
     id_to_label = vocab.get_index_to_token_vocabulary('labels')
     
@@ -57,16 +75,8 @@ def predict_labels_for_texts(text_list, batch_size, model, tokenizer, indexer, v
 
 
 def predict_file(filename, batch_size, model, tokenizer, indexer, vocab, device):
-    return predict_labels_for_texts(
-        pd.read_csv(filename).text.values, batch_size,
-        model, tokenizer, indexer, vocab, device
-    )
-
-def get_transformer_model_predictions(transformer_model, test_data_filename, model_dir,
-                                      batch_size, cuda_device=-1, use_bert_pooler=False,
-                                      verbose=True):
     '''
-    Trains a transformer-like model with usage of the AllenNLP framework.
+    Applies the given model to the given text file and returns the predicted labels.
     
     Parameters.
     1) transformer_model - model type (example: bert-base-cased),
@@ -78,7 +88,29 @@ def get_transformer_model_predictions(transformer_model, test_data_filename, mod
     6) use_bert_pooler - indicates whether should we take the embedding
     of the first token as the text embedding,
     7) verbose - indicates whether the logger shows INFO and WARNING messages.
+    '''
+
+    return predict_labels_for_texts(
+        pd.read_csv(filename).text.values, batch_size,
+        model, tokenizer, indexer, vocab, device
+    )
+
+def get_transformer_model_predictions(transformer_model, test_data_filename, model_dir,
+                                      batch_size, cuda_device=-1, use_bert_pooler=False,
+                                      verbose=True):
+    '''
+    Applies the given model to the given text file and returns the predicted labels.
     
+    Parameters.
+    1) transformer_model - model type (example: bert-base-cased),
+    2) test_data_filename - name of the test data file in csv format,
+    3) model_dir - directory where to save the model after training,
+    4) batch_size - batch size,
+    5) cuda_device - cuda device id on which the model trains 
+    (if set to -1, the training performs on CPU),
+    6) use_bert_pooler - indicates whether should we take the embedding
+    of the first token as the text embedding,
+    7) verbose - indicates whether the logger shows INFO and WARNING messages.
     '''
     
     if not verbose:
@@ -109,7 +141,7 @@ def get_transformer_model_predictions(transformer_model, test_data_filename, mod
 def evaluate_transformer_classifier(transformer_model, test_data_filename, model_dir, 
                                     batch_size, cuda_device=-1, use_bert_pooler=False):
     '''
-    Trains a transformer-like model with usage of the AllenNLP framework.
+    Applies the given model to the given text file and prints the metrics.
     
     Parameters.
     1) transformer_model - model type (example: bert-base-cased),
@@ -133,15 +165,14 @@ def evaluate_transformer_classifier(transformer_model, test_data_filename, model
 def get_transformer_classifier_accuracy(transformer_model, test_data_filename, model_dir, 
                                         batch_size, cuda_device=-1, use_bert_pooler=False):
     '''
-    Trains a transformer-like model with usage of the AllenNLP framework.
+    Returns accuracy of the given model on the given text file.
     
     Parameters.
     1) transformer_model - model type (example: bert-base-cased),
     2) test_data_filename - name of the test data file in csv format,
     3) model_dir - directory where to save the model after training,
     4) batch_size - batch size,
-    5) cuda_device - cuda device id on which the model trains 
-    (if set to -1, the training performs on CPU),
+    5) cuda_device - cuda device id on which the model trains (if set to -1, classification performs on CPU),
     6) use_bert_pooler - indicates whether should we take the embedding
     of the first token as the text embedding.
     
