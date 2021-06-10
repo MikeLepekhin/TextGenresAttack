@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+import torch
+
 from allennlp.data import Vocabulary
 from allennlp.models import Model
 from allennlp.modules import TextFieldEmbedder, Seq2VecEncoder
@@ -8,11 +12,8 @@ from allennlp.nn import util
 from allennlp.predictors import TextClassifierPredictor
 from allennlp.training.metrics import CategoricalAccuracy
 
-import numpy as np
-import pandas as pd
-import torch
 from typing import Dict, Iterable, List, Tuple
-from DeBERTa import deberta
+
 
 class SimpleClassifier(Model):
     def __init__(self,

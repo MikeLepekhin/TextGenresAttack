@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
 from allennlp.data.token_indexers import TokenIndexer, PretrainedTransformerIndexer
 from allennlp.data.tokenizers import Token, Tokenizer, PretrainedTransformerTokenizer
 from allennlp.models import Model
@@ -10,13 +14,10 @@ from allennlp.nn import util
 from allennlp.predictors import TextClassifierPredictor
 from allennlp.training.metrics import CategoricalAccuracy
 
-from os.path import join as pathjoin
 from matplotlib import pyplot as plt
-import numpy as np
-import pandas as pd
+from os.path import join as pathjoin
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
-import seaborn as sns
 from termcolor import colored
 
 
